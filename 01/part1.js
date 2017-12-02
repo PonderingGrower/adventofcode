@@ -6,8 +6,8 @@ const calc = (seq, dist=1) => {
     seq = seq.split('').map(Number)
   }
   let sum = 0, next;
-  for (let i = 0; i < seq.length; i++) {
-    next = i+dist
+  for (let i in seq) {
+    next = Number(i)+dist
     /* we gotta' loop around if we hit the end */
     if (seq[next] === undefined) {
       next -= seq.length

@@ -1,18 +1,26 @@
 const assert = require('assert')
 const fs = require('fs')
 
+/* permutations can be big, so use a generator */
+function* permGen () {
+  for (let i in this) {
+    for (let j in this) {
+      yield [ this[i], this[j] ]
+    }
+  }
+}
+
 /* helper to get permutations */
 const perm = (list) => {
   let rval = list.slice();
-  rval[Symbol.iterator] = function* permGen () {
-    for (let i=0; i < list.length; i++) {
-      for (let j=0; j < list.length; j++) {
-        yield [ list[i], list[j] ]
-      }
-    }
-  }
+  rval[Symbol.iterator] = permGen
   return rval
 }
+
+/* instead of generators we could just use lambdas */
+const altPerm = arr => arr.reduce(
+  (rval, v) => rval.concat(arr.map(x => [v,x])), []
+)
 
 const calc = (data) => {
   return data.reduce((sum, row) => {
