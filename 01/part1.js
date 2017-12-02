@@ -1,7 +1,7 @@
 const assert = require('assert')
 const fs = require('fs')
 
-const calc1 = (seq, dist=1) => {
+const calc = (seq, dist=1) => {
   if (typeof seq === 'string') {
     seq = seq.split('').map(Number)
   }
@@ -19,21 +19,16 @@ const calc1 = (seq, dist=1) => {
   return sum
 }
 
-assert.equal(calc1('1122'), 3)
-assert.equal(calc1('1111'), 4)
-assert.equal(calc1('1234'), 0)
-assert.equal(calc1('91212129'), 9)
+assert.equal(calc('1122'), 3)
+assert.equal(calc('1111'), 4)
+assert.equal(calc('1234'), 0)
+assert.equal(calc('91212129'), 9)
 
 /* arrow functions are just lovely */
-const calc2 = (seq) => calc1(seq, seq.length/2)
-
-assert.equal(calc2('1212'), 6)
-assert.equal(calc2('1221'), 0)
-assert.equal(calc2('123425'), 4)
-assert.equal(calc2('123123'), 12)
-assert.equal(calc2('12131415'), 4)
+const calc2 = (seq) => calc(seq, seq.length/2)
 
 data = fs.readFileSync('input').slice(0, -1).toString()
 
-console.log(calc1(data))
-console.log(calc2(data))
+console.log(calc(data))
+
+module.exports = calc
